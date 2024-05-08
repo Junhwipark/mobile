@@ -33,7 +33,7 @@
         app:srcCompat="@drawable/ic_launcher_foreground" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/recommend_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="영화 추천 버튼" />

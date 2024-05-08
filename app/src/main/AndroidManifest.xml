@@ -27,6 +27,9 @@
         <activity
             android:name=".MypageActivity">
         </activity>
+        <activity
+            android:name=".RecommendActivity">
+        </activity>
     </application>
 
 </manifest>

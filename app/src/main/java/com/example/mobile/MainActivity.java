@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, MypageActivity.class);
             startActivity(intent);
         });
-
+        Button recommend_button = (Button) findViewById(R.id.recommend_button);
+        recommend_button.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RecommendActivity.class);
+            startActivity(intent);
+        });
     }
 }
