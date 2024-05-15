@@ -23,7 +23,7 @@ public class WeatherData {
     public String lookUpWeather(String date, String time, String nx, String ny) throws IOException, JSONException {
         String baseDate = date; // 2022xxxx 형식을 사용해야 함
         String baseTime = timeChange(time); // 0500 형식을 사용해야 함
-        if(baseTime == "0000"){
+        if(baseTime.equals("0000")){
             baseTime = "2300";
             int intbaseDate = Integer.parseInt(baseDate);
             baseDate = String.valueOf(intbaseDate - 1);
