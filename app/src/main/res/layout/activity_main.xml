@@ -15,7 +15,7 @@
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/currentWeather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="현재날씨 들어갈 자리" />
