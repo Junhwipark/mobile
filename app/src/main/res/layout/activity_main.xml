@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -12,35 +12,37 @@
         android:id="@+id/display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"></LinearLayout>
+        android:orientation="vertical"
+        android:layout_above="@+id/button_layout">
+        <!-- Dynamic content will be added here -->
+    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/button_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/search_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="돋보기"
-            android:layout_gravity="bottom"/>
+            android:text="돋보기" />
 
         <Button
             android:id="@+id/main_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="메인"
-            android:layout_gravity="bottom"/>
+            android:text="메인" />
 
         <Button
             android:id="@+id/mypage_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="마이"
-            android:layout_gravity="bottom"/>
+            android:text="마이" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

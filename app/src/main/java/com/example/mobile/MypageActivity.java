@@ -2,6 +2,7 @@ package com.example.mobile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -43,5 +44,8 @@ public class MypageActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, favoriteItems);
         listViewFavorites.setAdapter(adapter);
+
+        Log.d("MypageActivity", "ListView: " + listViewFavorites);
+        Log.d("MypageActivity", "Adapter: " + adapter);
     }
 }
