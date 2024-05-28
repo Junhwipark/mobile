@@ -6,6 +6,7 @@ import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 
@@ -25,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private String date = "", time = "";
     private String x = "60", y = "127";
     private String weather = "";
-    private TextView currentWeather;
+    private TextView currentWeather, temperature, humidity, windSpeed;
+    private ImageView weatherIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +61,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        /*
-        현재 날씨 알림 ---------------------------------------------------------------
-         */
+        // 현재 날씨 알림 ---------------------------------------------------------------
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         currentWeather = findViewById(R.id.currentWeather);
+        temperature = findViewById(R.id.temperature);
+        humidity = findViewById(R.id.humidity);
+        windSpeed = findViewById(R.id.wind_speed);
+        weatherIcon = findViewById(R.id.weather_icon);
 
         long now = System.currentTimeMillis();
         Date mDate = new Date(now);
@@ -92,16 +98,37 @@ public class MainActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.i("THREE_ERROR2", e.getMessage());
         }
-        Log.d("현재날씨",weather);
+        Log.d("현재날씨", weather);
 
         // return한 값을 " " 기준으로 자른 후 배열에 추가
         // array[0] = 구름의 양, array[1] = 강수 확률, array[2] = 기온, array[3] = 풍속, array[4] = 적설량, array[5] = 습도
         String[] weatherarray = weather.split(" ");
-        for(int i = 0; i < weatherarray.length; i++) {
+        for (int i = 0; i < weatherarray.length; i++) {
             Log.d("weather = ", i + " " + weatherarray[i]);
         }
 
-        currentWeather.setText("현재 날씨 : " + weatherarray[0]);
+        currentWeather.setText("현재 날씨: " + weatherarray[0]);
+        temperature.setText("온도: " + weatherarray[2] + "°C");
+        humidity.setText("습도: " + weatherarray[5] + "%");
+        windSpeed.setText("풍속: " + weatherarray[3] + "m/s");
 
+        // 날씨에 맞는 아이콘 설정 (Glide를 사용하여 이미지 로드)
+        int weatherIconResId = getWeatherIconResource(weatherarray[0]);
+        Glide.with(this).load(weatherIconResId).into(weatherIcon);
+    }
+
+    private int getWeatherIconResource(String weatherCondition) {
+        switch (weatherCondition) {
+            case "맑음":
+                return R.drawable.sunny;
+            case "흐림":
+                return R.drawable.cloudy;
+            case "비":
+                return R.drawable.rainy;
+            case "눈":
+                return R.drawable.snowy;
+            default:
+                return R.drawable.unknown;
+        }
     }
 }

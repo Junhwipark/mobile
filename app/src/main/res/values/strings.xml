@@ -1,3 +1,4 @@
 <resources>
+    <string name="weather_icon">날씨 아이콘</string>
     <string name="app_name">mobile</string>
 </resources>
