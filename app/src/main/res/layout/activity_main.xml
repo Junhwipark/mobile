@@ -11,8 +11,8 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_launcher_background" />
+        android:layout_height="131dp"
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/currentWeather"
@@ -45,14 +45,14 @@
 
         <Button
             android:id="@+id/search_button"
-            android:layout_width="wrap_content"
+            android:layout_width="123dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="돋보기" />
 
         <Button
             android:id="@+id/main_button"
-            android:layout_width="wrap_content"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="메인" />
