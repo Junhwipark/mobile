@@ -1,9 +1,5 @@
 package com.example.mobile;
-<<<<<<< Updated upstream
 
-=======
-import android.content.Context;
->>>>>>> Stashed changes
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -26,7 +22,6 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-<<<<<<< Updated upstream
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentWeather, temperature, humidity, windSpeed;
     private ImageView weatherIcon;
 
-=======
-import java.util.List;
-public class MainActivity extends AppCompatActivity {
->>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +41,6 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-<<<<<<< Updated upstream
-=======
-        LinearLayout layouthome = (LinearLayout) findViewById(R.id.display);
-        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        layoutInflater.inflate(R.layout.activity_home, layouthome, true);
->>>>>>> Stashed changes
 
         Button main_button = (Button) findViewById(R.id.main_button);
 
@@ -132,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         int weatherIconResId = getWeatherIconResource(weatherarray[0]);
         Glide.with(this).load(weatherIconResId).into(weatherIcon);
     }
-<<<<<<< Updated upstream
 
     private int getWeatherIconResource(String weatherCondition) {
         switch (weatherCondition) {
@@ -147,22 +130,5 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return R.drawable.unknown;
         }
-=======
-    private void initializeMypage(View mypageView) {
-        ListView listViewFavorites = mypageView.findViewById(R.id.listViewFavorites);
-        List<String> favoriteItems = new ArrayList<>();
-        favoriteItems.add("좋아하는 영화: 인셉션");
-        favoriteItems.add("좋아하는 감독: 크리스토퍼 놀란");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, favoriteItems);
-        listViewFavorites.setAdapter(adapter);
->>>>>>> Stashed changes
     }
 }
