@@ -24,23 +24,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="돋보기"
-            android:layout_gravity="bottom"/>
+            android:text="돋보기" />
 
         <Button
             android:id="@+id/main_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="메인"
-            android:layout_gravity="bottom"/>
+            android:text="메인" />
 
         <Button
             android:id="@+id/mypage_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="마이"
-            android:layout_gravity="bottom"/>
+            android:text="마이" />
     </LinearLayout>
 </LinearLayout>
