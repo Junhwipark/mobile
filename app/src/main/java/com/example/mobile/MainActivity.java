@@ -4,16 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
@@ -21,7 +23,15 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +41,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentWeather, temperature, humidity, windSpeed;
     private ImageView weatherIcon;
 
+    private RecyclerView recyclerView;
+    private MoviePosterAdapter adapter;
+    private List<String> posterUrls;
+    private Set<String> favoriteMoviePosters;
+
+    private static final int ACCOUNT_ID = 123; // 실제 사용자 ID로 변경
+    private static final String API_KEY = "d2bfbfd363a792a5e30d3fcc521c68c7"; // TMDB API 키로 변경
+    private static final String SESSION_ID = "your_session_id"; // 실제 세션 ID로 변경
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { // 여기에서 savedState를 savedInstanceState로 수정합니다.
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -42,20 +61,19 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button main_button = (Button) findViewById(R.id.main_button);
+        Button main_button = findViewById(R.id.main_button);
+        main_button.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
 
-        Button search_button = (Button) findViewById(R.id.search_button);
+        Button search_button = findViewById(R.id.search_button);
         search_button.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SearchActivity.class);
             startActivity(intent);
         });
 
-        Button mypage_button = (Button) findViewById(R.id.mypage_button);
-        mypage_button.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, MypageActivity.class);
-            startActivity(intent);
-        });
-        Button recommend_button = (Button) findViewById(R.id.recommend_button);
+        Button recommend_button = findViewById(R.id.recommend_button);
         recommend_button.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, RecommendActivity.class);
             startActivity(intent);
@@ -115,6 +133,24 @@ public class MainActivity extends AppCompatActivity {
         // 날씨에 맞는 아이콘 설정 (Glide를 사용하여 이미지 로드)
         int weatherIconResId = getWeatherIconResource(weatherarray[0]);
         Glide.with(this).load(weatherIconResId).into(weatherIcon);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        posterUrls = new ArrayList<>();
+        favoriteMoviePosters = new HashSet<>(); // Set to avoid duplicate posters
+        adapter = new MoviePosterAdapter(this, posterUrls, this::onMovieSelected);
+        recyclerView.setAdapter(adapter);
+
+        // 좋아하는 영화 포스터 로드
+        loadFavoriteMovies();
+
+        Button myPageButton = findViewById(R.id.mypage_button);
+        myPageButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MypageActivity.class);
+            intent.putStringArrayListExtra("favoriteMoviePosters", new ArrayList<>(favoriteMoviePosters));
+            startActivity(intent);
+        });
     }
 
     private int getWeatherIconResource(String weatherCondition) {
@@ -129,6 +165,33 @@ public class MainActivity extends AppCompatActivity {
                 return R.drawable.snowy;
             default:
                 return R.drawable.unknown;
+        }
+    }
+
+    private void loadFavoriteMovies() {
+        TMDBClient.getApi().getFavoriteMovies(ACCOUNT_ID, API_KEY, SESSION_ID).enqueue(new Callback<FavoriteMoviesResponse>() {
+            @Override
+            public void onResponse(Call<FavoriteMoviesResponse> call, Response<FavoriteMoviesResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    for (FavoriteMoviesResponse.Movie movie : response.body().getResults()) {
+                        posterUrls.add("https://image.tmdb.org/t/p/w500" + movie.getPosterPath());
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FavoriteMoviesResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Failed to load favorite movies", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void onMovieSelected(String posterUrl) {
+        if (favoriteMoviePosters.contains(posterUrl)) {
+            favoriteMoviePosters.remove(posterUrl);
+        } else {
+            favoriteMoviePosters.add(posterUrl);
         }
     }
 }

@@ -18,25 +18,26 @@
         android:layout_marginBottom="24dp"/>
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="마이 페이지 내용"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"/>
+        android:text="좋아하는 영화" />
 
-    <ListView
-        android:id="@+id/listViewFavorites"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal">
+    </androidx.recyclerview.widget.RecyclerView>
 
     <Button
-        android:id="@+id/settingsButton"
+        android:id="@+id/select_movie_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="마이페이지 설정하기"
-        android:layout_marginTop="16dp"/>
-
+        android:text="영화 선택"
+        android:textSize="16sp"
+        android:elevation="4dp"
+        android:layout_marginTop="16dp" />
 </LinearLayout>

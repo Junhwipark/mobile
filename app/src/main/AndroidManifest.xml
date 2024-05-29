@@ -34,6 +34,11 @@
         <activity android:name=".SearchActivity"></activity>
         <activity android:name=".MypageActivity"></activity>
         <activity android:name=".RecommendActivity"></activity>
+        <activity android:name=".FavoriteMoviesResponse"></activity>
+        <activity android:name=".MovieImagesResponse"></activity>
+        <activity android:name=".TMDBClient"></activity>
+        <activity android:name=".MoviePosterAdapter"></activity>
+        <activity android:name=".MovieSelect"></activity>
     </application>
 
 </manifest>

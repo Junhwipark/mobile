@@ -1,47 +1,55 @@
 package com.example.mobile;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MypageActivity extends AppCompatActivity {
-    ListView listViewFavorites;
-    ArrayAdapter<String> adapter;
-    List<String> favoriteItems;
+
+    private RecyclerView recyclerView;
+    private MoviePosterAdapter adapter;
+    private List<String> posterUrls;
+
+    private static final int REQUEST_CODE_SELECT_MOVIE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_mypage);
 
-        // Set window insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mypage), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        posterUrls = new ArrayList<>();
+        adapter = new MoviePosterAdapter(this, posterUrls, posterUrl -> {
+            // 마이페이지에서는 선택된 영화를 처리할 필요가 없습니다.
         });
+        recyclerView.setAdapter(adapter);
 
-        // Initialize ListView and Adapter
-        listViewFavorites = findViewById(R.id.listViewFavorites);
-        favoriteItems = new ArrayList<>();
-        favoriteItems.add("좋아하는 영화: 인셉션");
-        favoriteItems.add("좋아하는 감독: 크리스토퍼 놀란");
-        favoriteItems.add("좋아하는 배우: 레오나르도 디카프리오");
+        Button selectMovieButton = findViewById(R.id.select_movie_button);
+        selectMovieButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MypageActivity.this, MovieSelect.class); // MovieSelect가 영화 선택을 위한 Activity
+            startActivityForResult(intent, REQUEST_CODE_SELECT_MOVIE);
+        });
+    }
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, favoriteItems);
-        listViewFavorites.setAdapter(adapter);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SELECT_MOVIE && resultCode == RESULT_OK) {
+            String selectedPosterUrl = data.getStringExtra("selectedPosterUrl");
+            if (selectedPosterUrl != null) {
+                posterUrls.add(selectedPosterUrl);
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }
