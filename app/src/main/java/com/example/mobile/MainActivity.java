@@ -26,7 +26,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private String date = "", time = "";
-    private String x = "60", y = "127";
+    private String x = "76", y = "121";
     private String weather = "";
     private TextView currentWeather, temperature, humidity, windSpeed;
     private ImageView weatherIcon;
@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         currentWeather.setText("현재 날씨: " + weatherarray[0]);
-        temperature.setText("온도: " + weatherarray[2] + "°C");
-        humidity.setText("습도: " + weatherarray[5] + "%");
-        windSpeed.setText("풍속: " + weatherarray[3] + "m/s");
+        temperature.setText("온도: " + weatherarray[2]);
+        humidity.setText("습도: " + weatherarray[5]);
+        windSpeed.setText("풍속: " + weatherarray[3]);
 
         // 날씨에 맞는 아이콘 설정 (Glide를 사용하여 이미지 로드)
         int weatherIconResId = getWeatherIconResource(weatherarray[0]);
