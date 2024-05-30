@@ -1,24 +1,22 @@
 package com.example.mobile;
-// Movie.java
-import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class Movie {
-    @SerializedName("title")
     private String title;
+    private String poster_path;
 
-    @SerializedName("poster_path")
-    private String posterPath;
-
-    // Getters
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getPosterPath() {
-        return posterPath;
+        return poster_path;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.poster_path = posterPath;
     }
 }
-
-

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     xmlns:tools="http://schemas.android.com/tools"
-     android:id="@+id/recommend"
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:orientation="vertical"
-     tools:context=".RecommendActivity" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recommend_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RecommendActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -29,7 +29,6 @@
         android:textColor="#333333"
         android:gravity="center" />
 
-    <!-- 날씨 아이콘 -->
     <ImageView
         android:id="@+id/weather_icon"
         android:layout_width="100dp"
@@ -39,7 +38,6 @@
         android:contentDescription="@string/weather_icon"
         android:scaleType="fitCenter" />
 
-    <!-- 온도 텍스트 -->
     <TextView
         android:id="@+id/temperature"
         android:layout_width="wrap_content"
@@ -50,7 +48,6 @@
         android:textColor="#333333"
         android:layout_marginBottom="8dp" />
 
-    <!-- 습도 텍스트 -->
     <TextView
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
@@ -61,7 +58,6 @@
         android:textColor="#333333"
         android:layout_marginBottom="8dp" />
 
-    <!-- 풍속 텍스트 -->
     <TextView
         android:id="@+id/wind_speed"
         android:layout_width="wrap_content"
@@ -72,8 +68,6 @@
         android:textColor="#333333"
         android:layout_marginBottom="8dp" />
 
-
-    <!-- 추천 버튼 -->
     <Button
         android:id="@+id/recommend_button"
         android:layout_width="match_parent"
@@ -133,4 +127,11 @@
             android:elevation="4dp"
             android:layout_marginStart="4dp" />
     </LinearLayout>
+
+    <!-- RecyclerView 추가 -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>
